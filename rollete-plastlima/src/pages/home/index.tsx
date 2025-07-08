@@ -16,7 +16,7 @@ export default function Home() {
       </div>
 
       <h2 className="font-semibold">Instruções</h2>
-      <div className="p-5 border max-w-xl bg-orange-400 text-white rounded-2xl mt-2 shadow">
+      <div className="p-5 border max-w-xl bg-[#1BA2B5] text-white rounded-2xl mt-2 shadow">
         <p className="text-center font-medium">
           Para concorrer a um brinde, preencha um formulário rápido. Não leva
           nem um minuto. Cada cadastro tem direito a um giro.
@@ -28,7 +28,7 @@ export default function Home() {
         size="lg"
         className=""
         asChild
-        variant="plastlima"
+        variant="princioAtivo"
       >
         <NavLink to="/signup">Iniciar</NavLink>
       </Button>

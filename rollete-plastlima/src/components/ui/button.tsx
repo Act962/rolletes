@@ -24,6 +24,8 @@ const buttonVariants = cva(
           "bg-orange-500 text-primary-foreground hover:bg-orange-500/90 border-orange-600 border-b-4 active:border-b-0",
         plastlimaGame:
           "bg-yellow-500 text-primary-foreground hover:bg-yellow-500/90 border-yellow-600 border-b-4 active:border-b-0",
+        princioAtivo:
+          "bg-[#1BA2B5] text-primary-foreground hover:bg-[#1BA2B5] /90 border-[#14737f] border-b-4 active:border-b-0",
       },
       size: {
         default: "h-11 px-4 py-2 has-[>svg]:px-3",

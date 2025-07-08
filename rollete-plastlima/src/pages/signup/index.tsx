@@ -5,11 +5,21 @@ import { useState } from "react";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../../components/ui/popover";
+import { Calendar } from "../../components/ui/calendar";
+import { Checkbox } from "../../components/ui/checkbox";
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [birth, setBirth] = useState<Date | undefined>(undefined);
+  const [open, setOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   function applyMask(input: string) {
@@ -39,10 +49,13 @@ export default function SignUp() {
       const payload = {
         name,
         phone,
-        nota: "plastlima",
+        anotacao: "principio_ativa",
+        birth,
+        email: "",
+        game: "",
       };
       const response = await fetch(
-        "https://nasago.bubbleapps.io/version-test/api/1.1/wf/form_totem",
+        "https://nasago.bubbleapps.io/version-test/api/1.1/wf/form_totem/initialize",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,7 +78,14 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4">
-      <div className="p-12 border rounded-md max-w-3xl w-full">
+      <div className="p-6 sm:p-12 border rounded-md max-w-3xl w-full">
+        <img
+          src="logo.svg"
+          width={90}
+          height={90}
+          alt="Logo Princípio Ativo"
+          className="mx-auto object-cover"
+        />
         <h3 className="font-bold text-center text-2xl">Cadastro</h3>
         <form onSubmit={signUpUser} className="space-y-4 mt-4">
           <div className="w-full flex flex-col gap-2">
@@ -87,13 +107,52 @@ export default function SignUp() {
             />
           </div>
 
+          <div className="w-full flex flex-col gap-2">
+            <Label htmlFor="birth">Data de aniversário</Label>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger>
+                <Input
+                  readOnly
+                  placeholder="Selecione uma data"
+                  value={birth?.toLocaleDateString()}
+                />
+              </PopoverTrigger>
+              <PopoverContent align="start">
+                <Calendar
+                  mode="single"
+                  selected={birth}
+                  captionLayout="dropdown"
+                  onSelect={(date) => {
+                    setBirth(date);
+                    setOpen(false);
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <div className="w-full flex gap-2">
+            <Checkbox
+              checked={isChecked}
+              onCheckedChange={(value) => setIsChecked(value === true)}
+              id="terms"
+            />{" "}
+            <Label htmlFor="terms" className=" text-xs text-gray-500">
+              Ao enviar seus dados, você autoriza o contato e o uso das
+              informações para melhorar os serviços, com respeito à sua
+              privacidade.
+            </Label>
+          </div>
+
           <Button
             type="submit"
             value="Iniciar"
             size="lg"
-            className="w-full"
-            variant="plastlima"
-            disabled={!(name && phone.length > 14) || isLoading}
+            className="w-full cursor-pointer"
+            variant="princioAtivo"
+            disabled={
+              !(name && phone.length > 14 && birth && isChecked) || isLoading
+            }
           >
             {isLoading ? <Loader className="animate-spin" /> : "Começar"}
           </Button>

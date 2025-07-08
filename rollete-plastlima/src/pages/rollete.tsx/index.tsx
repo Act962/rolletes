@@ -39,8 +39,15 @@ export default function Rollete() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-[#314367] to-[#2B3856] relative">
-      <div className="relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-white relative">
+      <img
+        src="logo.svg"
+        width={140}
+        height={140}
+        alt="Logo Princípio Ativo"
+        className="absolute top-2"
+      />
+      <div className="relative mt-4">
         <Wheel
           mustStartSpinning={mustSpin}
           prizeNumber={prizeNumber}
@@ -101,7 +108,7 @@ export default function Rollete() {
               onClick={() => {
                 setOpen(false);
                 setConfetti(false);
-                navigate("/");
+                navigate("/", { replace: true });
               }}
               variant="default"
             >
