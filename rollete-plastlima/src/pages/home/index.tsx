@@ -6,7 +6,7 @@ import { Button } from "../../components/ui/button";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-2">
       <h1 className="text-5xl font-bold">
         Bem-vindo ao <br />
         Girou Ganhou
