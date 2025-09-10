@@ -41,10 +41,11 @@ export default function SignUp() {
       setIsLoading(true);
       const payload = {
         name,
-        phone,
+        phone: "55"+phone,
         anotacao: "principio_ativa",
         email: "",
         game: "Roleta",
+        followFarm,
         company: "1742582731284x399259375665414140",
         idTracking: "1753197868475x451938565305663500"
       };
