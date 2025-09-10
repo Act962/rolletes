@@ -5,20 +5,13 @@ import { useState } from "react";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../components/ui/popover";
-import { Calendar } from "../../components/ui/calendar";
 import { Checkbox } from "../../components/ui/checkbox";
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [birth, setBirth] = useState<Date | undefined>(undefined);
-  const [open, setOpen] = useState(false);
+  const [followFarm, setFollowFarm] = useState (false)
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,12 +43,13 @@ export default function SignUp() {
         name,
         phone,
         anotacao: "principio_ativa",
-        birth,
         email: "",
-        game: "",
+        game: "Roleta",
+        company: "1742582731284x399259375665414140",
+        idTracking: "1753197868475x451938565305663500"
       };
       const response = await fetch(
-        "https://nasago.bubbleapps.io/version-test/api/1.1/wf/form_totem/initialize",
+        "https://nasago.bubbleapps.io/version-82ob6/api/1.1/wf/add_lead_sort",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -107,28 +101,14 @@ export default function SignUp() {
             />
           </div>
 
-          <div className="w-full flex flex-col gap-2">
-            <Label htmlFor="birth">Data de aniversário</Label>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger>
-                <Input
-                  readOnly
-                  placeholder="Selecione uma data"
-                  value={birth?.toLocaleDateString()}
-                />
-              </PopoverTrigger>
-              <PopoverContent align="start">
-                <Calendar
-                  mode="single"
-                  selected={birth}
-                  captionLayout="dropdown"
-                  onSelect={(date) => {
-                    setBirth(date);
-                    setOpen(false);
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
+          <div className="w-full flex flex-row gap-2">
+            
+            <Checkbox
+              checked={followFarm}
+              onCheckedChange={(value) => setFollowFarm(value === true)}
+              id="terms"
+            />
+            <Label className="text-">Segue a farmácia ?</Label>
           </div>
 
           <div className="w-full flex gap-2">
@@ -136,7 +116,9 @@ export default function SignUp() {
               checked={isChecked}
               onCheckedChange={(value) => setIsChecked(value === true)}
               id="terms"
-            />{" "}
+            />
+
+            {" "}
             <Label htmlFor="terms" className=" text-xs text-gray-500">
               Ao enviar seus dados, você autoriza o contato e o uso das
               informações para melhorar os serviços, com respeito à sua
@@ -151,7 +133,7 @@ export default function SignUp() {
             className="w-full cursor-pointer"
             variant="princioAtivo"
             disabled={
-              !(name && phone.length > 14 && birth && isChecked) || isLoading
+              !(name && phone.length > 14 && isChecked) || isLoading
             }
           >
             {isLoading ? <Loader className="animate-spin" /> : "Começar"}
