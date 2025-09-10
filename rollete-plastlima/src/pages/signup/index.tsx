@@ -11,7 +11,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [followFarm, setFollowFarm] = useState (false)
+  const [followFarm, setFollowFarm] = useState<null | boolean>(null)
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +41,7 @@ export default function SignUp() {
       setIsLoading(true);
       const payload = {
         name,
-        phone: "55"+phone,
+        phone: "55" + phone,
         anotacao: "principio_ativa",
         email: "",
         game: "Roleta",
@@ -102,14 +102,24 @@ export default function SignUp() {
             />
           </div>
 
-          <div className="w-full flex flex-row gap-2">
-            
-            <Checkbox
-              checked={followFarm}
-              onCheckedChange={(value) => setFollowFarm(value === true)}
-              id="terms"
-            />
-            <Label className="text-">Segue a farmácia ?</Label>
+          <div className="w-full flex flex-col gap-1">
+
+            <div className="w-full flex flex-row gap-2">
+              <Checkbox
+                checked={followFarm||false}
+                onCheckedChange={() => setFollowFarm(true)}
+                id="terms"
+              />
+              <Label htmlFor="terms" className=" text-sm text-gray-700">Já sigo o Instagram da farmácia</Label>
+            </div>
+            <div className="w-full flex flex-row gap-2">
+              <Checkbox
+                checked={followFarm==false}
+                onCheckedChange={() => setFollowFarm(false)}
+                id="terms"
+              />
+              <Label htmlFor="terms" className=" text-sm text-gray-700">Ainda não sigo o Instagram da farmácia</Label>
+            </div>
           </div>
 
           <div className="w-full flex gap-2">
@@ -134,7 +144,7 @@ export default function SignUp() {
             className="w-full cursor-pointer"
             variant="princioAtivo"
             disabled={
-              !(name && phone.length > 14 && isChecked) || isLoading
+              !(name && phone.length > 14 && followFarm!=null && isChecked) || isLoading
             }
           >
             {isLoading ? <Loader className="animate-spin" /> : "Começar"}
