@@ -47,7 +47,7 @@ export default function SignUp() {
         game: "Roleta",
         followFarm,
         company: "1742582731284x399259375665414140",
-        idTracking: "1757595390187x103426296881086460"
+        idTracking: "1753197868475x451938565305663500"
       };
       const response = await fetch(
         "https://nasago.bubbleapps.io/version-82ob6/api/1.1/wf/add_lead_sort",
